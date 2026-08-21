@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: guestbook
-          image: public.ecr.aws/nginx/nginx:1.27.0   # S1 bumps this tag
+          image: public.ecr.aws/nginx/nginx:1.28.0   # S1 bumps this tag
           ports:
             - containerPort: 80
           resources:
