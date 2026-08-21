@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook-preprod
+  namespace: argocd
+spec:
+  project: preprod-workloads
+  source:
+    repoURL: https://codeconnections.eu-west-1.amazonaws.com/git-http/657669454344/eu-west-1/c17db1ce-af73-4599-af25-a35e9d17c6fd/lizduke/gitops-demo.git
+    targetRevision: main
+    path: apps/guestbook/preprod
+  destination:
+    name: gitops-spoke-preprod
+    namespace: guestbook
+  # Pre-prod auto-syncs: an approved, merged change flows here with no human step.
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

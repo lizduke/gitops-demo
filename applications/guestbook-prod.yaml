@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook-prod
+  namespace: argocd
+spec:
+  project: prod-workloads
+  source:
+    repoURL: https://codeconnections.eu-west-1.amazonaws.com/git-http/657669454344/eu-west-1/c17db1ce-af73-4599-af25-a35e9d17c6fd/lizduke/gitops-demo.git
+    targetRevision: main
+    path: apps/guestbook/prod
+  destination:
+    name: gitops-spoke-prod
+    namespace: guestbook
+  # NO automated syncPolicy on purpose: prod is the HITL gate. A merged change makes this
+  # Application OutOfSync and it STAYS there until a human runs `argocd app sync
+  # argocd/guestbook-prod` (or clicks Sync in the UI). The agents have no Argo CD token, so
+  # they cannot promote to prod.
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

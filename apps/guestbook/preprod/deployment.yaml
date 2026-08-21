@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guestbook
+  labels: {app: guestbook, env: preprod}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: guestbook}
+  template:
+    metadata:
+      labels: {app: guestbook, env: preprod}
+    spec:
+      containers:
+        - name: guestbook
+          image: public.ecr.aws/nginx/nginx:1.27.0   # S1 bumps this tag
+          ports:
+            - containerPort: 80
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits:   {cpu: 100m, memory: 128Mi}
