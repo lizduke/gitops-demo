@@ -10,7 +10,7 @@ spec:
     targetRevision: main
     path: apps/guestbook/preprod
   destination:
-    name: gitops-spoke-prod
+    name: gitops-spoke-preprod
     namespace: guestbook
   # Pre-prod auto-syncs: an approved, merged change flows here with no human step.
   syncPolicy:
