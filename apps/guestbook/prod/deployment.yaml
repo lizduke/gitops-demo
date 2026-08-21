@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: guestbook
-          image: public.ecr.aws/nginx/nginx:1.27.0   # promoted from pre-prod via a reviewed PR
+          image: public.ecr.aws/nginx/nginx:1.28.0   # promoted from pre-prod via a reviewed PR
           ports:
             - containerPort: 80
           resources:
