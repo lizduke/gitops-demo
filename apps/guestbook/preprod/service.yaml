@@ -5,6 +5,10 @@ metadata:
   labels: {app: guestbook, env: preprod}
 spec:
   type: LoadBalancer          # stable URL that survives pod rollouts (Auto Mode provisions an NLB)
+  # Restrict the NLB to your own IP — an open (0.0.0.0/0) internet-facing LB will trip
+  # security rules. Set this to your egress IP /32 (curl -s https://checkip.amazonaws.com).
+  loadBalancerSourceRanges:
+    - 86.186.180.13/32
   selector: {app: guestbook}
   ports:
     - {port: 80, targetPort: http}
