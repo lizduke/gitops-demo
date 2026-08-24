@@ -4,6 +4,7 @@ metadata:
   name: guestbook
   labels: {app: guestbook, env: preprod}
 spec:
+  type: LoadBalancer          # stable URL that survives pod rollouts (Auto Mode provisions an NLB)
   selector: {app: guestbook}
   ports:
     - {port: 80, targetPort: http}
