@@ -12,10 +12,13 @@ spec:
       labels: {app: guestbook, env: prod}
     spec:
       containers:
-        - name: guestbook
-          image: public.ecr.aws/nginx/nginx:1.28.0   # promoted from pre-prod via a reviewed PR
+        - name: podinfo
+          image: ghcr.io/stefanprodan/podinfo:6.7.0   # promoted from pre-prod via a reviewed PR + human sync
           ports:
-            - containerPort: 80
+            - {name: http, containerPort: 9898}
+          env:
+            - {name: PODINFO_UI_COLOR,   value: "#4285F4"}   # blue = prod
+            - {name: PODINFO_UI_MESSAGE, value: "PROD (deployed only after human sync)"}
           resources:
-            requests: {cpu: 50m, memory: 64Mi}
-            limits:   {cpu: 100m, memory: 128Mi}
+            requests: {cpu: 50m, memory: 32Mi}
+            limits:   {cpu: 100m, memory: 64Mi}
