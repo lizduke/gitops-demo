@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: podinfo
-          image: ghcr.io/stefanprodan/podinfo:6.7.2   # S1 bumps this tag (visible in the podinfo UI)
+          image: ghcr.io/stefanprodan/podinfo:6.7.1   # S1 bumps this tag (visible in the podinfo UI)
           ports:
             - {name: http, containerPort: 9898}
           env:
