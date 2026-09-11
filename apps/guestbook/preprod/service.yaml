@@ -2,13 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: guestbook
-  labels: {app: guestbook, env: preprod}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: 'auto-delete=never,auto-stop=no'
 spec:
-  type: LoadBalancer          # stable URL that survives pod rollouts (Auto Mode provisions an NLB)
-  # Restrict the NLB to your own IP — an open (0.0.0.0/0) internet-facing LB will trip
-  # security rules. Set this to your egress IP /32 (curl -s https://checkip.amazonaws.com).
-  loadBalancerSourceRanges:
-    - 86.186.180.13/32
-  selector: {app: guestbook}
+  type: LoadBalancer
+  selector:
+    app: guestbook
   ports:
-    - {port: 80, targetPort: http}
+    - port: 80
+      targetPort: http
+  loadBalancerSourceRanges:
+    - 109.151.202.165/32
